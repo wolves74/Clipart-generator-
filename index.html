@@ -6,119 +6,147 @@
 <title>Clipart Prompt Creator</title>
 
 <style>
+:root {
+  --bg: #f6f4f1;
+  --mint: #bcc8c2;
+  --blush: #e6c7bd;
+  --mustard: #d8cf8f;
+  --coral: #d25a32;
+  --charcoal: #5a5a5a;
+  --white: #ffffff;
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    margin: 0;
-    background: #f6f4f1;
-    color: #3a3a3a;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: #3a3a3a;
 }
 
 /* HEADER */
 .header {
-    background: #e6c7bd; /* blush */
-    padding: 30px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  background: var(--blush);
+  padding: 20px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: #bcc8c2; /* mint */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  width: 80px;
+  height: 80px;
+  background: var(--mint);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .logo img {
-    width: 70%;
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
 }
 
-.header-text h1 {
-    margin: 0;
-    font-size: 32px;
+/* TEXT */
+.header h1 {
+  margin: 0;
+  font-size: 32px;
 }
 
-.header-text p {
-    margin: 5px 0 0;
-    opacity: 0.7;
+.header p {
+  margin: 5px 0 0;
+  font-size: 14px;
 }
 
-/* GRID */
+/* LAYOUT */
 .container {
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 /* BOXES */
 .box {
-    border-radius: 20px;
-    padding: 20px;
+  padding: 20px;
+  border-radius: 20px;
 }
 
-/* COLOR SECTIONS */
-.style-box { background: #bcc8c2; }      /* mint */
-.details-box { background: #e6c7bd; }    /* blush */
-.line-box { background: #d8cf8f; }       /* mustard */
-.mood-box { background: #e6c7bd; }       /* blush */
-.theme-box { background: #bcc8c2; }      /* mint */
-.palette-box { background: #e6c7bd; }    /* blush */
+.style { background: var(--mint); }
+.details { background: var(--blush); }
+.line { background: var(--mustard); }
 
-/* BUTTON OPTIONS */
-.option {
-    background: #ffffff;
-    padding: 10px;
-    border-radius: 20px;
-    margin: 8px 0;
-    text-align: center;
-    cursor: pointer;
+h2 {
+  margin-top: 0;
 }
 
 /* INPUTS */
 input, textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 12px;
-    border: none;
-    margin-top: 5px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  background: #f8f8f8;
+}
+
+textarea {
+  height: 120px;
+}
+
+/* OPTIONS */
+.option {
+  background: white;
+  border-radius: 999px;
+  padding: 12px;
+  text-align: center;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.option.active {
+  background: var(--charcoal);
+  color: white;
+}
+
+/* LINE GRID */
+.line-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 /* BUTTONS */
 .buttons {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 button {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 20px;
-    margin: 5px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 999px;
+  color: white;
+  font-weight: bold;
+  margin: 5px;
 }
 
-.generate { background: #e0663c; } /* coral darker */
-.copy { background: #b8a94d; }     /* mustard darker */
-.clear { background: #6b6b6b; }    /* charcoal */
+.generate { background: var(--coral); }
+.copy { background: #b8a94d; }
+.clear { background: var(--charcoal); }
 
 /* OUTPUT */
 .output {
-    background: white;
-    padding: 15px;
-    border-radius: 15px;
-    margin-top: 20px;
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 20px;
 }
 </style>
 </head>
@@ -126,22 +154,23 @@ button {
 <body>
 
 <div class="header">
-    <div class="logo">
-        <img src="logo.png">
-    </div>
-    <div class="header-text">
-        <h1>Clipart Prompt Creator</h1>
-        <p>Create beautiful, cohesive prompts with a Farm & Pumpkin feel.</p>
-    </div>
+  <div class="logo">
+    <!-- ✅ FIXED HERE -->
+    <img src="./Logo.png">
+  </div>
+
+  <div>
+    <h1>Clipart Prompt Creator</h1>
+    <p>Create beautiful prompts with a Farm & Pumpkin feel.</p>
+  </div>
 </div>
 
 <div class="container">
 
 <div class="grid">
 
-<!-- STYLE -->
-<div class="box style-box">
-<h3>Style</h3>
+<div class="box style">
+<h2>Style</h2>
 <div class="option">children’s book illustration</div>
 <div class="option">watercolor</div>
 <div class="option">line art</div>
@@ -150,52 +179,27 @@ button {
 <div class="option">logo</div>
 </div>
 
-<!-- DETAILS -->
-<div class="box details-box">
-<h3>Details</h3>
+<div class="box details">
+<h2>Details</h2>
+
 <label>Subject</label>
 <input placeholder="ducky, pumpkin pie, apple">
 
 <label>Extra Details</label>
-<textarea placeholder="bow, rain boots, smiling face"></textarea>
+<textarea placeholder="optional details..."></textarea>
+
 </div>
 
-<!-- LINE STYLE -->
-<div class="box line-box">
-<h3>Line Style</h3>
+</div>
+
+<div class="box line">
+<h2>Line Style</h2>
+
+<div class="line-grid">
 <div class="option">clean outlines</div>
 <div class="option">bold outlines</div>
 <div class="option">thin lines</div>
 <div class="option">sketchy lines</div>
-</div>
-
-<!-- MOOD -->
-<div class="box mood-box">
-<h3>Mood / Finish</h3>
-<div class="option">cute</div>
-<div class="option">soft</div>
-<div class="option">playful</div>
-<div class="option">minimal</div>
-</div>
-
-<!-- THEME -->
-<div class="box theme-box">
-<h3>Theme</h3>
-<div class="option">spring</div>
-<div class="option">summer</div>
-<div class="option">fall</div>
-<div class="option">winter</div>
-<div class="option">holiday</div>
-<div class="option">classroom</div>
-</div>
-
-<!-- PALETTE -->
-<div class="box palette-box">
-<h3>Color Palette</h3>
-<div class="option">sage + blush</div>
-<div class="option">mustard + blush</div>
-<div class="option">coral + cream</div>
-<div class="option">farmhouse muted</div>
 </div>
 
 </div>
@@ -207,7 +211,7 @@ button {
 </div>
 
 <div class="output">
-Your prompt will appear here…
+Your prompt will appear here...
 </div>
 
 </div>
