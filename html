@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Clipart Prompt Creator</title>
+
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f6f4f1;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: #2f2a26;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+.header {
+  background: #efc9b8;
+  padding: 30px;
+  border-radius: 25px;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #efc9b8;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 10px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.option {
+  background: #efc9b8;
+  padding: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.option.active {
+  background: #d9a18a;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 15px;
+  border: none;
+  font-size: 16px;
+}
+
+button {
+  background: #efc9b8;
+  border: none;
+  padding: 18px;
+  border-radius: 25px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.output {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background: white;
+  min-height: 80px;
+  text-align: left;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+Clipart Prompt Creator
+</div>
+
+<div class="grid">
+  <div class="card">
+    <strong>Style</strong>
+    <div class="option" onclick="selectOption(this,'style','children’s book illustration')">children’s book illustration</div>
+    <div class="option" onclick="selectOption(this,'style','line art')">line art</div>
+    <div class="option" onclick="selectOption(this,'style','watercolor')">watercolor</div>
+    <div class="option" onclick="selectOption(this,'style','logo')">logo</div>
+    <div class="option" onclick="selectOption(this,'style','doodle')">doodle</div>
+    <div class="option" onclick="selectOption(this,'style','sketch')">sketch</div>
+  </div>
+
+  <div class="card">
+    <strong>Details</strong>
+    <input id="details" placeholder="add extra details...">
+  </div>
+</div>
+
+<button onclick="generatePrompt()">Generate Prompt</button>
+
+<div class="output" id="output">
+Your prompt will appear here.
+</div>
+
+</div>
+
+<script>
+let selections = {
+  style: ""
+};
+
+function selectOption(el, type, value) {
+  document.querySelectorAll(`[onclick*="${type}"]`).forEach(btn => {
+    btn.classList.remove("active");
+  });
+  el.classList.add("active");
+  selections[type] = value;
+}
+
+function generatePrompt() {
+  let details = document.getElementById("details").value;
+
+  let prompt = `Create a ${selections.style} clipart illustration ${details}`;
+
+  document.getElementById("output").innerText = prompt;
+}
+</script>
+
+</body>
+</html>
