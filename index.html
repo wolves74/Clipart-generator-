@@ -4,92 +4,95 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clipart Prompt Generator</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#f5f1ed" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Clipart Prompt" />
+  <link rel="apple-touch-icon" href="app-icon.png" />
+
   <style>
-    :root {
-      --bg: #f3f3f1;
-      --panel: #fbfbfa;
-      --text: #8a8a8a;
-      --text-dark: #6f6f6f;
-      --border: #d7d7d7;
-      --radius: 18px;
+    :root{
+      --bg:#f5f1ed;
+      --panel:#ece7e2;
+      --text:#6e6a66;
+      --text-light:#908a84;
+      --shadow:0 4px 12px rgba(0,0,0,0.04);
+      --radius:16px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    *{box-sizing:border-box}
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
       font-family: Georgia, "Times New Roman", serif;
     }
 
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 36px 28px 48px;
+    .page{
+      max-width:1150px;
+      margin:0 auto;
+      padding:36px 24px 48px;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 26px;
-      align-items: start;
-      margin-bottom: 26px;
+    .hero{
+      display:grid;
+      grid-template-columns:170px 1fr;
+      gap:24px;
+      align-items:start;
+      margin-bottom:28px;
     }
 
-    .logo-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 170px;
+    .logo-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
     }
 
-    .logo-wrap img {
-      max-width: 150px;
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
+    .logo-wrap img{
+      width:130px;
+      height:auto;
+      display:block;
+      object-fit:contain;
     }
 
-    .hero-copy {
-      text-align: center;
-      padding-top: 6px;
+    .hero-copy{
+      text-align:center;
     }
 
-    .title {
-      margin: 0;
-      color: var(--text-dark);
-      font-size: clamp(42px, 6vw, 74px);
-      font-weight: 400;
-      line-height: 0.95;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
+    .title{
+      margin:0;
+      color:var(--text);
+      font-size:clamp(42px,6vw,78px);
+      font-weight:400;
+      line-height:.95;
+      letter-spacing:.1em;
+      text-transform:uppercase;
     }
 
-    .subtitle {
-      margin: 28px auto 0;
-      max-width: 860px;
-      font-size: 18px;
-      line-height: 1.45;
-      letter-spacing: 0.16em;
-      color: var(--text);
+    .subtitle{
+      margin:26px auto 0;
+      max-width:860px;
+      color:var(--text-light);
+      font-size:18px;
+      line-height:1.45;
+      letter-spacing:.12em;
     }
 
-    .top-controls {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 28px;
-      margin-top: 28px;
-      align-items: start;
+    .top-controls{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:26px;
+      margin-top:28px;
+      align-items:start;
     }
 
-    .dropdown-group {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    .dropdown-group{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
     }
 
     .dropdown-toggle,
@@ -97,170 +100,177 @@
     .details-label,
     .details-input,
     .action-btn,
-    .prompt-box {
-      background: var(--panel);
-      border: 1px solid rgba(0,0,0,0.02);
-      border-radius: var(--radius);
+    .prompt-box{
+      background:#f8f6f4;
+      border:none;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
 
-    .dropdown-toggle {
-      min-height: 92px;
-      padding: 18px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
+    .dropdown-toggle{
+      min-height:92px;
+      padding:18px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      cursor:pointer;
+      transition:transform .2s ease, opacity .2s ease;
     }
 
-    .dropdown-title {
-      flex: 1;
-      text-align: center;
-      color: var(--text);
-      font-size: 26px;
-      letter-spacing: 0.18em;
-      text-transform: lowercase;
+    .dropdown-toggle:hover,
+    .action-btn:hover{
+      transform:translateY(-2px);
+      opacity:.95;
     }
 
-    .chevron-box {
-      width: 50px;
-      height: 50px;
-      border: 2px solid #bebebe;
-      border-radius: 10px;
-      position: relative;
-      flex-shrink: 0;
+    .dropdown-title{
+      flex:1;
+      text-align:center;
+      color:var(--text-light);
+      font-size:26px;
+      letter-spacing:.18em;
+      text-transform:lowercase;
     }
 
-    .chevron-box::before {
-      content: "";
-      width: 14px;
-      height: 14px;
-      border-right: 4px solid #bebebe;
-      border-bottom: 4px solid #bebebe;
-      position: absolute;
-      top: 13px;
-      left: 14px;
-      transform: rotate(45deg);
+    .chevron-box{
+      width:50px;
+      height:50px;
+      border:2px solid #bdb8b3;
+      border-radius:10px;
+      position:relative;
+      flex-shrink:0;
     }
 
-    .panel {
-      padding: 18px 24px;
-      min-height: 400px;
-      display: none;
+    .chevron-box::before{
+      content:"";
+      width:14px;
+      height:14px;
+      border-right:4px solid #bdb8b3;
+      border-bottom:4px solid #bdb8b3;
+      position:absolute;
+      top:13px;
+      left:14px;
+      transform:rotate(45deg);
     }
 
-    .panel.open {
-      display: block;
+    .panel{
+      padding:18px 24px;
+      min-height:360px;
+      display:none;
     }
 
-    .panel-option {
-      text-align: center;
-      font-size: 17px;
-      letter-spacing: 0.12em;
-      color: var(--text);
-      padding: 18px 8px;
-      border-radius: 14px;
-      cursor: pointer;
+    .panel.open{
+      display:block;
+    }
+
+    .panel-option{
+      text-align:center;
+      font-size:17px;
+      letter-spacing:.11em;
+      color:var(--text-light);
+      padding:18px 8px;
+      border-radius:14px;
+      cursor:pointer;
+      transition:background .2s ease, color .2s ease;
     }
 
     .panel-option:hover,
-    .panel-option.active {
-      background: #f1f1ef;
-      color: var(--text-dark);
+    .panel-option.active{
+      background:#efebe7;
+      color:var(--text);
     }
 
-    .details-row {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 28px;
-      margin-top: 22px;
-      align-items: center;
+    .details-row{
+      display:grid;
+      grid-template-columns:330px 1fr;
+      gap:26px;
+      margin-top:22px;
+      align-items:center;
     }
 
-    .details-label {
-      min-height: 92px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      letter-spacing: 0.18em;
-      text-transform: lowercase;
-      color: var(--text);
-      padding: 14px;
+    .details-label{
+      min-height:92px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:26px;
+      letter-spacing:.18em;
+      text-transform:lowercase;
+      color:var(--text-light);
+      padding:14px;
     }
 
-    .details-input {
-      min-height: 92px;
-      padding: 20px 24px;
-      font-family: inherit;
-      font-size: 18px;
-      color: var(--text-dark);
-      outline: none;
+    .details-input{
+      min-height:92px;
+      padding:20px 24px;
+      font-family:inherit;
+      font-size:18px;
+      color:var(--text);
+      outline:none;
+      width:100%;
     }
 
-    .details-input::placeholder {
-      color: #b0b0b0;
-      letter-spacing: 0.08em;
+    .details-input::placeholder{
+      color:#b1aba5;
+      letter-spacing:.08em;
     }
 
-    .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 28px;
-      margin-top: 22px;
+    .actions{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:26px;
+      margin-top:22px;
     }
 
-    .action-btn {
-      min-height: 84px;
-      border: none;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 22px;
-      letter-spacing: 0.14em;
-      text-transform: lowercase;
-      cursor: pointer;
+    .action-btn{
+      min-height:84px;
+      border:none;
+      color:var(--text-light);
+      font-family:inherit;
+      font-size:22px;
+      letter-spacing:.14em;
+      text-transform:lowercase;
+      cursor:pointer;
     }
 
-    .prompt-box {
-      min-height: 92px;
-      margin-top: 22px;
-      padding: 20px 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #d4d4d4;
-      font-size: 34px;
-      letter-spacing: 0.18em;
-      text-transform: lowercase;
+    .prompt-box{
+      min-height:92px;
+      margin-top:22px;
+      padding:20px 26px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#d5d0cb;
+      font-size:34px;
+      letter-spacing:.18em;
+      text-transform:lowercase;
     }
 
-    .prompt-box.has-text {
-      justify-content: flex-start;
-      text-align: left;
-      color: var(--text-dark);
-      font-size: 18px;
-      letter-spacing: 0.04em;
-      text-transform: none;
-      line-height: 1.5;
+    .prompt-box.has-text{
+      justify-content:flex-start;
+      text-align:left;
+      color:var(--text);
+      font-size:18px;
+      letter-spacing:.04em;
+      text-transform:none;
+      line-height:1.5;
     }
 
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .logo-wrap {
-        min-height: auto;
-      }
-
+    @media (max-width:900px){
+      .hero,
       .top-controls,
-      .actions,
-      .details-row {
-        grid-template-columns: 1fr;
+      .details-row,
+      .actions{
+        grid-template-columns:1fr;
       }
 
-      .panel {
-        min-height: auto;
+      .hero-copy{
+        text-align:center;
+      }
+
+      .panel{
+        min-height:auto;
       }
     }
   </style>
@@ -269,11 +279,7 @@
   <div class="page">
     <div class="hero">
       <div class="logo-wrap">
-        <img
-          src="farm-logo.png"
-          alt="Farm and Pumpkin logo"
-          onerror="this.onerror=null; this.src='./farm-logo.png';"
-        />
+        <img src="farm-logo.png" alt="Farm and Pumpkin logo" />
       </div>
 
       <div class="hero-copy">
@@ -288,7 +294,7 @@
     <div class="top-controls">
       <div class="dropdown-group">
         <div class="dropdown-toggle" data-target="style-panel">
-          <div class="dropdown-title">style</div>
+          <div class="dropdown-title" id="styleLabel">style</div>
           <div class="chevron-box"></div>
         </div>
         <div class="panel" id="style-panel">
@@ -303,7 +309,7 @@
 
       <div class="dropdown-group">
         <div class="dropdown-toggle" data-target="line-panel">
-          <div class="dropdown-title">line style</div>
+          <div class="dropdown-title" id="lineLabel">line style</div>
           <div class="chevron-box"></div>
         </div>
         <div class="panel" id="line-panel">
@@ -317,7 +323,7 @@
 
       <div class="dropdown-group">
         <div class="dropdown-toggle" data-target="mood-panel">
-          <div class="dropdown-title">mood</div>
+          <div class="dropdown-title" id="moodLabel">mood</div>
           <div class="chevron-box"></div>
         </div>
         <div class="panel" id="mood-panel">
@@ -345,41 +351,43 @@
   </div>
 
   <script>
-    const selections = {
-      style: "",
-      line: "",
-      mood: ""
-    };
+    const selections = { style: "", line: "", mood: "" };
 
     document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
       toggle.addEventListener("click", () => {
         const targetId = toggle.getAttribute("data-target");
-        const panel = document.getElementById(targetId);
-        panel.classList.toggle("open");
+        const targetPanel = document.getElementById(targetId);
+
+        document.querySelectorAll(".panel").forEach(panel => {
+          if (panel !== targetPanel) panel.classList.remove("open");
+        });
+
+        targetPanel.classList.toggle("open");
       });
     });
 
     document.querySelectorAll(".panel-option").forEach(option => {
       option.addEventListener("click", () => {
         const group = option.getAttribute("data-group");
+
         document.querySelectorAll(`.panel-option[data-group="${group}"]`).forEach(opt => {
           opt.classList.remove("active");
         });
+
         option.classList.add("active");
         selections[group] = option.textContent.trim();
+
+        if (group === "style") document.getElementById("styleLabel").textContent = selections[group];
+        if (group === "line") document.getElementById("lineLabel").textContent = selections[group];
+        if (group === "mood") document.getElementById("moodLabel").textContent = selections[group];
+
+        option.closest(".panel").classList.remove("open");
       });
     });
 
     document.getElementById("generateBtn").addEventListener("click", () => {
       const details = document.getElementById("detailsInput").value.trim();
-
-      const parts = [
-        selections.style,
-        selections.line,
-        selections.mood,
-        details
-      ].filter(Boolean);
-
+      const parts = [selections.style, selections.line, selections.mood, details].filter(Boolean);
       const promptBox = document.getElementById("promptBox");
 
       if (parts.length === 0) {
@@ -395,7 +403,6 @@
     document.getElementById("copyBtn").addEventListener("click", async () => {
       const promptBox = document.getElementById("promptBox");
       const text = promptBox.textContent.trim();
-
       if (!text || text === "the prompt") return;
 
       try {
@@ -414,12 +421,21 @@
       selections.line = "";
       selections.mood = "";
       document.getElementById("detailsInput").value = "";
+      document.getElementById("styleLabel").textContent = "style";
+      document.getElementById("lineLabel").textContent = "line style";
+      document.getElementById("moodLabel").textContent = "mood";
       document.querySelectorAll(".panel-option").forEach(opt => opt.classList.remove("active"));
       document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("open"));
       const promptBox = document.getElementById("promptBox");
       promptBox.textContent = "the prompt";
       promptBox.classList.remove("has-text");
     });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
